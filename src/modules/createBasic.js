@@ -14,7 +14,7 @@ function createBasic (element) {
         this.add.rectangle(
           0, 0,
           config.width, config.height,
-          0x000000, 0.85
+          0x000000,0.85
         )
         .setOrigin(0, 0)
         .setDepth(1)
@@ -30,6 +30,7 @@ function createBasic (element) {
         )
         .setShadow(1, 1, '#000000', 0)
         .setOrigin(0.5)
+        .setDepth(2)
       );
 
     case 'text_2':
@@ -42,6 +43,7 @@ function createBasic (element) {
         )
         .setShadow(1, 1, '#000000', 0)
         .setOrigin(0.5)
+        .setDepth(2)
       );
 
     case 'text_3':
@@ -72,6 +74,7 @@ function createBasic (element) {
           .setOrigin(0, 0.5)
           .setScale(0.5)
           .setFlip(true, false)
+          .setDepth(2)
       );
 
     case 'play':

@@ -25,6 +25,7 @@ export const config = {
 const game = new Phaser.Game(config);
 let counter = 0;
 let act = 'start';
+let show = false;
 export let circles, dimmer, textStyle, text_1, text_2, text_3, text_4, text_5, dogs, exampleDog, logo, char, play;
 
 function preload (){
@@ -81,6 +82,7 @@ function create (){
   text_5 = createFinalElements.bind(this)('text_5');
 
   this.input.on('gameobjectup', ((pointer, gameObject) => {
+    console.log("create -> gameObject", gameObject.texture.key)
     if (act === 'middle') {
       if ('checked' in gameObject === false && gameObject.type === 'dog') {
         circles.create(gameObject.x, gameObject.y, 'circle')
@@ -90,6 +92,10 @@ function create (){
 
         gameObject.checked = true;
         counter++;
+      }
+
+      if (gameObject.texture.key === 'btn') {
+        show = true;
       }
     }
   }));
@@ -173,6 +179,31 @@ function update() {
 
       default:
         break;
+    }
+  }
+
+  if (show) {
+    if (dimmer.fillAlpha < 0.8) {
+      dimmer.fillAlpha += 0.01;
+      text_1.alpha += 0.01; text_1.setDepth(2).setScale(1);
+      text_2.alpha += 0.01; text_2.setDepth(2).setScale(1);
+      exampleDog.alpha += 0.01; exampleDog.setDepth(2).setScale(0.5);
+    }
+
+    if (dimmer.fillAlpha > 0.8) {
+      show = false;
+    }
+
+    if (!show) {
+      this.time.addEvent({
+        delay: 2000,
+        callback: () => {
+          act = 'start';
+        },
+        callbackScope: this,
+        loop: false,
+        repeat: 0,
+      });
     }
   }
 }
